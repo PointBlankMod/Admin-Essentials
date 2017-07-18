@@ -43,6 +43,9 @@
     <Reference Include="PointBlank">
       <HintPath>..\Libraries\PointBlank.dll</HintPath>
     </Reference>
+    <Reference Include="PointBlankUnturned">
+      <HintPath>..\Libraries\PointBlankUnturned.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
