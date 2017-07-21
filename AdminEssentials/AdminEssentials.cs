@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PointBlank.API.Collections;
+﻿using PointBlank.API.Collections;
 using PointBlank.API.Plugins;
 using PointBlank.API.Unturned.Player;
 using SDG.Unturned;
@@ -12,10 +8,13 @@ namespace AdminEssentials
     public class AdminEssentials : Plugin
     {
         #region Variables
+        
         private PlayerEvents.PlayerHurtHandler HurtHandler = null;
+        
         #endregion
 
         #region Properties
+        
         public override TranslationList Translations => new TranslationList()
         {
             { "PlayerNotFound", "The specified player has not been found!" },
@@ -25,16 +24,14 @@ namespace AdminEssentials
             { "GodMode_Success", "You have been godmodded!" }
         };
 
-        public override ConfigurationList Configurations => new ConfigurationList()
-        {
-
-        };
+        public override ConfigurationList Configurations => new ConfigurationList() { };
 
         public override string Version => "1.0.0.0";
 
         public override string BuildURL => "";
 
         public override string VersionURL => "";
+        
         #endregion
 
         public override void Load()
@@ -56,11 +53,13 @@ namespace AdminEssentials
         }
 
         #region Event Functions
+        
         private void OnHurt(UnturnedPlayer player, ref byte damage, ref EDeathCause cause, ref ELimb limb, ref UnturnedPlayer damager, ref bool cancel)
         {
             if(player.Metadata.ContainsKey("GodMode"))
                 cancel = true;
         }
+        
         #endregion
     }
 }

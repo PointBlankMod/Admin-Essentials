@@ -2,7 +2,7 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{4BDA9A7B-CF9F-4580-A334-CB9CE9E8D1DF}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -31,20 +31,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Assembly-CSharp">
+    <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\Libraries\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
+    <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\Libraries\Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Assembly-UnityScript-firstpass">
+    <Reference Include="Assembly-UnityScript-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\Libraries\Assembly-UnityScript-firstpass.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="PointBlank">
+    <Reference Include="PointBlank, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\Libraries\PointBlank.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="PointBlankUnturned">
+    <Reference Include="PointBlankSecurity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\Libraries\PointBlankSecurity.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PointBlankUnturned, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\Libraries\PointBlankUnturned.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -52,7 +61,7 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UnityEngine">
+    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\Libraries\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
