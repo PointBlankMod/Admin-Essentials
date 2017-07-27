@@ -32,19 +32,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\Libraries\Assembly-CSharp.dll</HintPath>
+      <HintPath>Libraries\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>..\Libraries\Assembly-CSharp-firstpass.dll</HintPath>
+      <HintPath>Libraries\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-UnityScript-firstpass">
-      <HintPath>..\Libraries\Assembly-UnityScript-firstpass.dll</HintPath>
+      <HintPath>Libraries\Assembly-UnityScript-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="PointBlank">
-      <HintPath>..\Libraries\PointBlank.dll</HintPath>
+      <HintPath>Libraries\PointBlank.dll</HintPath>
     </Reference>
     <Reference Include="PointBlankUnturned">
-      <HintPath>..\Libraries\PointBlankUnturned.dll</HintPath>
+      <HintPath>Libraries\PointBlankUnturned.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -53,7 +53,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
-      <HintPath>..\Libraries\UnityEngine.dll</HintPath>
+      <HintPath>Libraries\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
