@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using PointBlank.API.Commands;
+using PointBlank.API.Player;
 using PointBlank.API.Unturned.Player;
 using PointBlank.API.Unturned.Chat;
 
@@ -12,6 +10,7 @@ namespace AdminEssentials.Commands
     public class GodMode : PointBlankCommand
     {
         #region Properties
+        
         public override string[] DefaultCommands => new string[]
         {
             "god",
@@ -25,11 +24,13 @@ namespace AdminEssentials.Commands
         public override string DefaultPermission => "adminessentials.commands.godmode";
 
         public override EAllowedServerState AllowedServerState => EAllowedServerState.RUNNING;
+        
         #endregion
 
-        public override void Execute(UnturnedPlayer executor, string[] args)
+        public override void Execute(PointBlankPlayer executor, string[] args)
         {
-            UnturnedPlayer player = executor;
+            UnturnedPlayer player = (UnturnedPlayer)executor;
+            
             if(args.Length > 0)
             {
                 if(!UnturnedPlayer.TryGetPlayer(args[0], out player))
@@ -38,6 +39,7 @@ namespace AdminEssentials.Commands
                     return;
                 }
             }
+            
             if(UnturnedPlayer.IsServer(player))
             {
                 UnturnedChat.SendMessage(executor, AdminEssentials.Instance.Translate("FailServer"), ConsoleColor.Red);
@@ -48,6 +50,7 @@ namespace AdminEssentials.Commands
                 player.Metadata.Remove("GodMode");
             else
                 player.Metadata.Add("GodMode", true);
+            
             UnturnedChat.SendMessage(player, AdminEssentials.Instance.Translate("GodMode_Success"), ConsoleColor.Green);
         }
     }
