@@ -1,6 +1,8 @@
-﻿using PointBlank.API.Collections;
+﻿using System;
+using PointBlank.API.Collections;
 using PointBlank.API.Plugins;
 using PointBlank.API.Unturned.Player;
+using PointBlank.API.Unturned.Server;
 using SDG.Unturned;
 
 namespace AdminEssentials
@@ -8,9 +10,9 @@ namespace AdminEssentials
     public class AdminEssentials : Plugin
     {
         #region Variables
-        
         private PlayerEvents.PlayerHurtHandler HurtHandler = null;
-        
+
+        private DateTime lastRun;
         #endregion
 
         #region Properties
@@ -19,6 +21,7 @@ namespace AdminEssentials
         {
             { "PlayerNotFound", "The specified player has not been found!" },
             { "FailServer", "Please target a specific player!" },
+            { "InVehicle", "The player is inside a vehicle!" },
 
             #region GodMode
             { "GodMode_Help", "Disables all damage done to the player" },
@@ -29,6 +32,17 @@ namespace AdminEssentials
             #region Broadcast
             { "Broadcast_Help", "Broadcasts a message to the entire server" },
             { "Broadcast_Usage", " <message>" },
+            #endregion
+
+            #region Heal
+            { "Heal_Help", "Heal a specified player or yourself" },
+            { "Heal_Usage", " [player]" },
+            { "Heal_Success", "The player {0} has been healed!" },
+            #endregion
+
+            #region TpHere
+            { "TpHere_Help", "Teleports a player to you" },
+            { "TpHere_Usage", " <player>" },
             #endregion
         };
 
@@ -46,6 +60,7 @@ namespace AdminEssentials
         {
             // Set the trash
             HurtHandler = new PlayerEvents.PlayerHurtHandler(OnHurt);
+            lastRun = DateTime.Now;
 
             // Hook events
             PlayerEvents.OnPlayerHurt += HurtHandler;
@@ -60,14 +75,25 @@ namespace AdminEssentials
             HurtHandler = null;
         }
 
+        #region Mono Functions
+        void FixedUpdate()
+        {
+            if((DateTime.Now - lastRun).TotalMilliseconds > 2000)
+            {
+                for(int i = 0; i < UnturnedServer.Players.Length; i++)
+                    if (UnturnedServer.Players[i].Metadata.ContainsKey("GodMode"))
+                        UnturnedServer.Players[i].Life.sendRevive();
+                lastRun = DateTime.Now;
+            }
+        }
+        #endregion
+
         #region Event Functions
-        
         private void OnHurt(UnturnedPlayer player, ref byte damage, ref EDeathCause cause, ref ELimb limb, ref UnturnedPlayer damager, ref bool cancel)
         {
             if(player.Metadata.ContainsKey("GodMode"))
                 cancel = true;
         }
-        
         #endregion
     }
 }

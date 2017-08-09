@@ -60,6 +60,8 @@
     <Compile Include="AdminEssentials.cs" />
     <Compile Include="Commands\Broadcast.cs" />
     <Compile Include="Commands\GodMode.cs" />
+    <Compile Include="Commands\Heal.cs" />
+    <Compile Include="Commands\TpHere.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

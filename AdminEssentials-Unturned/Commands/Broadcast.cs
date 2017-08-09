@@ -14,7 +14,7 @@ namespace AdminEssentials.Commands
         #region Properties
         public override string[] DefaultCommands => new string[]
         {
-            "broadcast"
+            "Broadcast"
         };
 
         public override string Help => Translate("Broadcast_Help");
