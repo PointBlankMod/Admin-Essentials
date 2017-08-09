@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminEssentials.cs" />
+    <Compile Include="Commands\Broadcast.cs" />
     <Compile Include="Commands\GodMode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -19,9 +19,17 @@ namespace AdminEssentials
         {
             { "PlayerNotFound", "The specified player has not been found!" },
             { "FailServer", "Please target a specific player!" },
+
+            #region GodMode
             { "GodMode_Help", "Disables all damage done to the player" },
             { "GodMode_Usage", " [player]" },
-            { "GodMode_Success", "You have been godmodded!" }
+            { "GodMode_Success", "You have been godmodded!" },
+            #endregion
+
+            #region Broadcast
+            { "Broadcast_Help", "Broadcasts a message to the entire server" },
+            { "Broadcast_Usage", " <message>" },
+            #endregion
         };
 
         public override ConfigurationList Configurations => new ConfigurationList() { };

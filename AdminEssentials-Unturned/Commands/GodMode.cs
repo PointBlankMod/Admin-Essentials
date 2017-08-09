@@ -6,11 +6,9 @@ using PointBlank.API.Unturned.Chat;
 
 namespace AdminEssentials.Commands
 {
-    [PointBlankCommand("GodMode", 0)]
     public class GodMode : PointBlankCommand
     {
         #region Properties
-        
         public override string[] DefaultCommands => new string[]
         {
             "god",
@@ -24,7 +22,6 @@ namespace AdminEssentials.Commands
         public override string DefaultPermission => "adminessentials.commands.godmode";
 
         public override EAllowedServerState AllowedServerState => EAllowedServerState.RUNNING;
-        
         #endregion
 
         public override void Execute(PointBlankPlayer executor, string[] args)
