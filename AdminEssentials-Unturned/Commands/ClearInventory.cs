@@ -6,23 +6,23 @@ using PointBlank.API.Commands;
 using PointBlank.API.Player;
 using PointBlank.API.Unturned.Chat;
 using PointBlank.API.Unturned.Player;
-using UnityEngine;
 
 namespace AdminEssentials.Commands
 {
-    public class Back : PointBlankCommand
+    public class ClearInventory : PointBlankCommand
     {
         #region Properties
         public override string[] DefaultCommands => new string[]
         {
-            "Back"
+            "ci",
+            "clearinventory"
         };
 
-        public override string Help => Translate("Back_Help");
+        public override string Help => Translate("ClearInventory_Help");
 
-        public override string Usage => Commands[0] + Translate("Back_Usage");
+        public override string Usage => Commands[0] + Translate("ClearInventory_Usage");
 
-        public override string DefaultPermission => "adminessentials.commands.back";
+        public override string DefaultPermission => "adminessentials.commands.clearinventory";
 
         public override EAllowedServerState AllowedServerState => EAllowedServerState.RUNNING;
         #endregion
@@ -44,16 +44,10 @@ namespace AdminEssentials.Commands
                 UnturnedChat.SendMessage(executor, Translate("TargetServer"), ConsoleColor.Red);
                 return;
             }
-            if (!player.Metadata.ContainsKey("pPosition"))
-            {
-                UnturnedChat.SendMessage(executor, Translate("Back_NoLocation"), ConsoleColor.Red);
-                return;
-            }
-            Vector3 pos = new Vector3(player.Position.x, player.Position.y, player.Position.z);
 
-            player.Teleport((Vector3)player.Metadata["pPosition"]);
-            player.Metadata.Add("pPosition", pos);
-            UnturnedChat.SendMessage(executor, Translate("Back_Successful", player.PlayerName), ConsoleColor.Green);
+            while(player.Items.Length > 0)
+                player.RemoveItem(player.Items[0]);
+            UnturnedChat.SendMessage(executor, Translate("ClearInventory_Success", player.PlayerName), ConsoleColor.Green);
         }
     }
 }

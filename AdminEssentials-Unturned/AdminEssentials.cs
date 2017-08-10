@@ -6,6 +6,7 @@ using PointBlank.API.Plugins;
 using PointBlank.API.Unturned.Player;
 using PointBlank.API.Unturned.Server;
 using SDG.Unturned;
+using UnityEngine;
 using CMDS = PointBlank.Commands;
 
 namespace AdminEssentials
@@ -25,6 +26,8 @@ namespace AdminEssentials
             { "PlayerNotFound", "The specified player has not been found!" },
             { "FailServer", "Please target a specific player!" },
             { "InVehicle", "The player is inside a vehicle!" },
+            { "TargetServer", "Can't use command on server!" },
+            { "NotSpecified", "Unspecified" },
 
             #region GodMode
             { "GodMode_Help", "Disables all damage done to the player" },
@@ -57,9 +60,27 @@ namespace AdminEssentials
 
             #region Back
             { "Back_Help", "Teleports you back to the previous position before you teleported." },
-            { "Back_Server", "Can't use command on server!" },
+            { "Back_Usage", " [player]" },
             { "Back_NoLocation", "No previous location has been stored!" },
             { "Back_Successful", "{0} has been successfully sent back!" },
+            #endregion
+
+            #region Clear Inventory
+            { "ClearInventory_Help", "Clears a player's inventory" },
+            { "ClearInventory_Usage", " [player]" },
+            { "ClearInventory_Success", "{0}'s inventory has been cleared!" },
+            #endregion
+
+            #region Freeze
+            { "Freeze_Help", "Freezes a player in place" },
+            { "Freeze_Usage", " <player>" },
+            { "Freeze_Unfreeze", "{0} has been unfrozen!" },
+            { "Freeze_freeze", "{0} has been frozen!" },
+            #endregion
+
+            #region Kick All
+            { "KickAll_Help", "Kicks all player from the server." },
+            { "KickAll_Usage", " [reason]" },
             #endregion
         };
 
@@ -108,6 +129,9 @@ namespace AdminEssentials
                         UnturnedServer.Players[i].Life.sendRevive();
                 lastRun = DateTime.Now;
             }
+            foreach(UnturnedPlayer player in UnturnedServer.Players)
+                if (player.Metadata.ContainsKey("FreezePosition"))
+                    player.Teleport((Vector3)player.Metadata["FreezePosition"]);
         }
         #endregion
 
