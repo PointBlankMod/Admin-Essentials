@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using PointBlank.API.Commands;
 using PointBlank.API.Collections;
@@ -81,6 +81,11 @@ namespace AdminEssentials
             #region Kick All
             { "KickAll_Help", "Kicks all player from the server." },
             { "KickAll_Usage", " [reason]" },
+            #endregion
+
+            #region Tp All
+            {"TpAll_Help" , "Teleports all players to the specified city or player." },
+            {"TpAll_Usage" , " [city] | [player]" },
             #endregion
         };
 
