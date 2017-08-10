@@ -58,9 +58,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminEssentials.cs" />
+    <Compile Include="Commands\Back.cs" />
     <Compile Include="Commands\Broadcast.cs" />
     <Compile Include="Commands\GodMode.cs" />
     <Compile Include="Commands\Heal.cs" />
+    <Compile Include="Commands\Teleport.cs" />
     <Compile Include="Commands\TpHere.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

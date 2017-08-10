@@ -6,6 +6,7 @@ using PointBlank.API.Commands;
 using PointBlank.API.Player;
 using PointBlank.API.Unturned.Player;
 using PointBlank.API.Unturned.Chat;
+using UnityEngine;
 
 namespace AdminEssentials.Commands
 {
@@ -43,6 +44,7 @@ namespace AdminEssentials.Commands
                 return;
             }
 
+            player.Metadata.Add("pPosition", new Vector3(player.Position.x, player.Position.y, player.Position.z));
             player.Teleport(((UnturnedPlayer)executor).Position);
         }
     }

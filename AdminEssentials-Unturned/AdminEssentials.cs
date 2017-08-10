@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Linq;
+using PointBlank.API.Commands;
 using PointBlank.API.Collections;
 using PointBlank.API.Plugins;
 using PointBlank.API.Unturned.Player;
 using PointBlank.API.Unturned.Server;
 using SDG.Unturned;
+using CMDS = PointBlank.Commands;
 
 namespace AdminEssentials
 {
@@ -44,6 +47,20 @@ namespace AdminEssentials
             { "TpHere_Help", "Teleports a player to you" },
             { "TpHere_Usage", " <player>" },
             #endregion
+
+            #region Teleport
+            { "Teleport_Help", "This teleports the first player to the second or a location." },
+            { "Teleport_Usage", " <target/node> [player]" },
+            { "Teleport_Invalid", "The specified teleport location is invalid!" },
+            { "Teleport_Teleport", "{0} has been teleported to {1}!" },
+            #endregion
+
+            #region Back
+            { "Back_Help", "Teleports you back to the previous position before you teleported." },
+            { "Back_Server", "Can't use command on server!" },
+            { "Back_NoLocation", "No previous location has been stored!" },
+            { "Back_Successful", "{0} has been successfully sent back!" },
+            #endregion
         };
 
         public override ConfigurationList Configurations => new ConfigurationList() { };
@@ -62,6 +79,9 @@ namespace AdminEssentials
             HurtHandler = new PlayerEvents.PlayerHurtHandler(OnHurt);
             lastRun = DateTime.Now;
 
+            // Disable existing commands
+            CommandManager.DisableCommand(CommandManager.GetCommand<CMDS.CommandTeleport>());
+
             // Hook events
             PlayerEvents.OnPlayerHurt += HurtHandler;
         }
@@ -70,6 +90,9 @@ namespace AdminEssentials
         {
             // Unhook events
             PlayerEvents.OnPlayerHurt -= HurtHandler;
+
+            // Reenable existing commands
+            CommandManager.EnableCommand(CommandManager.GetCommand<CMDS.CommandTeleport>());
 
             // Remove the trash
             HurtHandler = null;
