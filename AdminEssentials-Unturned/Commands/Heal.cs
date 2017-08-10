@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using PointBlank.API.Commands;
 using PointBlank.API.Player;
+using PointBlank.API.Implements;
 using PointBlank.API.Unturned.Chat;
 using PointBlank.API.Unturned.Player;
 
@@ -28,24 +29,28 @@ namespace AdminEssentials.Commands
 
         public override void Execute(PointBlankPlayer executor, string[] args)
         {
-            UnturnedPlayer player = (UnturnedPlayer)executor;
+            UnturnedPlayer[] players = new UnturnedPlayer[1];
+            players[0] = (UnturnedPlayer)executor;
 
             if(args.Length > 0)
             {
-                if(!UnturnedPlayer.TryGetPlayer(args[0], out player))
+                if(!UnturnedPlayer.TryGetPlayers(args[0], out players))
                 {
                     UnturnedChat.SendMessage(executor, Translate("PlayerNotFound"), ConsoleColor.Red);
                     return;
                 }
             }
-            if (UnturnedPlayer.IsServer(player))
+            players.ForEach((player) =>
             {
-                UnturnedChat.SendMessage(executor, Translate("FailServer"), ConsoleColor.Red);
-                return;
-            }
+                if (UnturnedPlayer.IsServer(player))
+                {
+                    UnturnedChat.SendMessage(executor, Translate("FailServer"), ConsoleColor.Red);
+                    return;
+                }
 
-            player.Life.sendRevive();
-            UnturnedChat.SendMessage(executor, Translate("Heal_Success", player.PlayerName), ConsoleColor.Green);
+                player.Life.sendRevive();
+                UnturnedChat.SendMessage(executor, Translate("Heal_Success", player.PlayerName), ConsoleColor.Green);
+            });
         }
     }
 }

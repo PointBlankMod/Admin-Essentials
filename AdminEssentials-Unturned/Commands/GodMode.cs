@@ -1,6 +1,7 @@
 ﻿using System;
 using PointBlank.API.Commands;
 using PointBlank.API.Player;
+using PointBlank.API.Implements;
 using PointBlank.API.Unturned.Player;
 using PointBlank.API.Unturned.Chat;
 
@@ -26,28 +27,32 @@ namespace AdminEssentials.Commands
 
         public override void Execute(PointBlankPlayer executor, string[] args)
         {
-            UnturnedPlayer player = (UnturnedPlayer)executor;
+            UnturnedPlayer[] players = new UnturnedPlayer[1];
+            players[0] = (UnturnedPlayer)executor;
             
             if(args.Length > 0)
             {
-                if(!UnturnedPlayer.TryGetPlayer(args[0], out player))
+                if(!UnturnedPlayer.TryGetPlayers(args[0], out players))
                 {
                     UnturnedChat.SendMessage(executor, Translate("PlayerNotFound"), ConsoleColor.Red);
                     return;
                 }
             }
-            if(UnturnedPlayer.IsServer(player))
+            players.ForEach((player) =>
             {
-                UnturnedChat.SendMessage(executor, Translate("FailServer"), ConsoleColor.Red);
-                return;
-            }
+                if (UnturnedPlayer.IsServer(player))
+                {
+                    UnturnedChat.SendMessage(executor, Translate("FailServer"), ConsoleColor.Red);
+                    return;
+                }
 
-            if (player.Metadata.ContainsKey("GodMode"))
-                player.Metadata.Remove("GodMode");
-            else
-                player.Metadata.Add("GodMode", true);
-            
-            UnturnedChat.SendMessage(player, Translate("GodMode_Success"), ConsoleColor.Green);
+                if (player.Metadata.ContainsKey("GodMode"))
+                    player.Metadata.Remove("GodMode");
+                else
+                    player.Metadata.Add("GodMode", true);
+
+                UnturnedChat.SendMessage(player, Translate("GodMode_Success"), ConsoleColor.Green);
+            });
         }
     }
 }

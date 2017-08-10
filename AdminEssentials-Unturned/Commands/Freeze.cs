@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using PointBlank.API.Commands;
 using PointBlank.API.Player;
+using PointBlank.API.Implements;
 using PointBlank.API.Unturned.Chat;
 using PointBlank.API.Unturned.Player;
 using UnityEngine;
@@ -31,22 +32,25 @@ namespace AdminEssentials.Commands
 
         public override void Execute(PointBlankPlayer executor, string[] args)
         {
-            if(!UnturnedPlayer.TryGetPlayer(args[0], out UnturnedPlayer player))
+            if(!UnturnedPlayer.TryGetPlayers(args[0], out UnturnedPlayer[] players))
             {
                 UnturnedChat.SendMessage(executor, Translate("PlayerNotFound"), ConsoleColor.Red);
                 return;
             }
 
-            if (player.Metadata.ContainsKey("FreezePosition"))
+            players.ForEach((player) =>
             {
-                player.Metadata.Remove("FreezePosition");
-                UnturnedChat.SendMessage(executor, Translate("Freeze_Unfreeze", player.PlayerName), ConsoleColor.Green);
-            }
-            else
-            {
-                player.Metadata.Add("FreezePosition", new Vector3(player.Position.x, player.Position.y, player.Position.z));
-                UnturnedChat.SendMessage(executor, Translate("Freeze_Freeze", player.PlayerName), ConsoleColor.Green);
-            }
+                if (player.Metadata.ContainsKey("FreezePosition"))
+                {
+                    player.Metadata.Remove("FreezePosition");
+                    UnturnedChat.SendMessage(executor, Translate("Freeze_Unfreeze", player.PlayerName), ConsoleColor.Green);
+                }
+                else
+                {
+                    player.Metadata.Add("FreezePosition", player.Position.Duplicate());
+                    UnturnedChat.SendMessage(executor, Translate("Freeze_Freeze", player.PlayerName), ConsoleColor.Green);
+                }
+            });
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using PointBlank.API.Commands;
 using PointBlank.API.Player;
+using PointBlank.API.Implements;
 using PointBlank.API.Unturned.Chat;
 using PointBlank.API.Unturned.Player;
 
@@ -29,25 +30,29 @@ namespace AdminEssentials.Commands
 
         public override void Execute(PointBlankPlayer executor, string[] args)
         {
-            UnturnedPlayer player = (UnturnedPlayer)executor;
+            UnturnedPlayer[] players = new UnturnedPlayer[1];
+            players[0] = (UnturnedPlayer)executor;
 
             if(args.Length > 0)
             {
-                if(!UnturnedPlayer.TryGetPlayer(args[0], out player))
+                if(!UnturnedPlayer.TryGetPlayers(args[0], out players))
                 {
                     UnturnedChat.SendMessage(executor, Translate("PlayerNotFound"), ConsoleColor.Red);
                     return;
                 }
             }
-            if (UnturnedPlayer.IsServer(player))
+            players.ForEach((player) =>
             {
-                UnturnedChat.SendMessage(executor, Translate("TargetServer"), ConsoleColor.Red);
-                return;
-            }
+                if (UnturnedPlayer.IsServer(player))
+                {
+                    UnturnedChat.SendMessage(executor, Translate("TargetServer"), ConsoleColor.Red);
+                    return;
+                }
 
-            while(player.Items.Length > 0)
-                player.RemoveItem(player.Items[0]);
-            UnturnedChat.SendMessage(executor, Translate("ClearInventory_Success", player.PlayerName), ConsoleColor.Green);
+                while (player.Items.Length > 0)
+                    player.RemoveItem(player.Items[0]);
+                UnturnedChat.SendMessage(executor, Translate("ClearInventory_Success", player.PlayerName), ConsoleColor.Green);
+            });
         }
     }
 }
