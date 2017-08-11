@@ -11,7 +11,7 @@ using CMDS = PointBlank.Commands;
 
 namespace AdminEssentials
 {
-    public class AdminEssentials : Plugin
+    public class AdminEssentials : PointBlankPlugin
     {
         #region Variables
         private PlayerEvents.PlayerHurtHandler HurtHandler = null;
@@ -120,7 +120,7 @@ namespace AdminEssentials
             lastRun = DateTime.Now;
 
             // Disable existing commands
-            CommandManager.DisableCommand(CommandManager.GetCommand<CMDS.CommandTeleport>());
+            PointBlankCommandManager.DisableCommand(PointBlankCommandManager.GetCommand<CMDS.CommandTeleport>());
 
             // Hook events
             PlayerEvents.OnPlayerHurt += HurtHandler;
@@ -132,7 +132,7 @@ namespace AdminEssentials
             PlayerEvents.OnPlayerHurt -= HurtHandler;
 
             // Reenable existing commands
-            CommandManager.EnableCommand(CommandManager.GetCommand<CMDS.CommandTeleport>());
+            PointBlankCommandManager.EnableCommand(PointBlankCommandManager.GetCommand<CMDS.CommandTeleport>());
 
             // Remove the trash
             HurtHandler = null;
