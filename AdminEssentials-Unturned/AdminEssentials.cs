@@ -20,7 +20,7 @@ namespace AdminEssentials
         #endregion
 
         #region Properties
-        
+
         public override TranslationList Translations => new TranslationList()
         {
             { "PlayerNotFound", "The specified player has not been found!" },
@@ -95,8 +95,9 @@ namespace AdminEssentials
             { "Jump_Usage", " [max distance]" },
             { "Jump_Distance", "Invalid distance!" },
             { "Jump_Jump", "Jumped successfully!" },
+            #endregion
 
-            #region Tp All
+            #region TpAll
             {"TpAll_Help" , "Teleports all players to the specified city or player." },
             {"TpAll_Usage" , " [city] | [player]" },
             #endregion
@@ -109,7 +110,7 @@ namespace AdminEssentials
         public override string BuildURL => "";
 
         public override string VersionURL => "";
-        
+
         #endregion
 
         public override void Load()

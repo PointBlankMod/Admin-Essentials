@@ -68,6 +68,7 @@
     <Compile Include="Commands\Jump.cs" />
     <Compile Include="Commands\KickAll.cs" />
     <Compile Include="Commands\Teleport.cs" />
+    <Compile Include="Commands\TpAll.cs" />
     <Compile Include="Commands\TpHere.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
