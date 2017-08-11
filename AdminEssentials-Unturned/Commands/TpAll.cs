@@ -1,7 +1,11 @@
+using System;
 using System.Linq;
 using PointBlank.API.Commands;
 using PointBlank.API.Player;
+using PointBlank.API.Implements;
+using PointBlank.API.Unturned.Chat;
 using PointBlank.API.Unturned.Server;
+using PointBlank.API.Unturned.Player;
 using SDG.Unturned;
 
 namespace AdminEssentials.Commands
@@ -20,23 +24,56 @@ namespace AdminEssentials.Commands
 
         public override string DefaultPermission => "adminessentials.commands.tpall";
 
+        public override EAllowedServerState AllowedServerState => EAllowedServerState.RUNNING;
         #endregion
 
         public override void Execute(PointBlankPlayer executor, string[] args)
         {
-            if(UnturnedServer.Players.Where(i => i.CharacterName == args[0]).FirstOrDefault() != null)
+            if(args.Length > 0)
             {
-                foreach(var player in UnturnedServer.Players)
+                if(UnturnedPlayer.TryGetPlayer(args[0], out UnturnedPlayer target))
                 {
-                    player.Teleport(UnturnedServer.Players.Where(i => i.CharacterName == args[0]).FirstOrDefault().Position);
+                    UnturnedServer.Players.ForEach((player) =>
+                    {
+                        if (player.Metadata.ContainsKey("pPosition"))
+                            player.Metadata["pPosition"] = player.Position.Duplicate();
+                        else
+                            player.Metadata.Add("pPosition", player.Position.Duplicate());
+                        player.Teleport(target.Position);
+                    });
+                    return;
                 }
+                Node nTarget = LevelNodes.nodes.FirstOrDefault(a => a.type == ENodeType.LOCATION && NameTool.checkNames(args[0], ((LocationNode)a).name));
+
+                if (nTarget == null)
+                {
+                    UnturnedChat.SendMessage(executor, Translate("TpAll_Invalid"), ConsoleColor.Red);
+                    return;
+                }
+                UnturnedServer.Players.ForEach((player) =>
+                {
+                    if (player.Metadata.ContainsKey("pPosition"))
+                        player.Metadata["pPosition"] = player.Position.Duplicate();
+                    else
+                        player.Metadata.Add("pPosition", player.Position.Duplicate());
+                    player.Teleport(nTarget.point);
+                });
             }
-            else if(LevelNodes.nodes.Find(i => ((LocationNode)i).name.ToLower() == args[0].ToLower()) != null)
+            else
             {
-                foreach(var player in UnturnedServer.Players)
+                if (UnturnedPlayer.IsServer(executor))
                 {
-                    player.Teleport(LevelNodes.nodes.Find(i => ((LocationNode)i).name.ToLower() == args[0].ToLower()).point);
+                    UnturnedChat.SendMessage(executor, Translate("TargetServer"), ConsoleColor.Red);
+                    return;
                 }
+                UnturnedServer.Players.ForEach((player) =>
+                {
+                    if (player.Metadata.ContainsKey("pPosition"))
+                        player.Metadata["pPosition"] = player.Position.Duplicate();
+                    else
+                        player.Metadata.Add("pPosition", player.Position.Duplicate());
+                    player.Teleport(((UnturnedPlayer)executor).Position);
+                });
             }
         }
     }

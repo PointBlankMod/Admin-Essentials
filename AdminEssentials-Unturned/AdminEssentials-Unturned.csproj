@@ -67,6 +67,9 @@
     <Compile Include="Commands\Heal.cs" />
     <Compile Include="Commands\Jump.cs" />
     <Compile Include="Commands\KickAll.cs" />
+    <Compile Include="Commands\KillAnimals.cs" />
+    <Compile Include="Commands\KillZombies.cs" />
+    <Compile Include="Commands\MaxSkills.cs" />
     <Compile Include="Commands\Teleport.cs" />
     <Compile Include="Commands\TpAll.cs" />
     <Compile Include="Commands\TpHere.cs" />

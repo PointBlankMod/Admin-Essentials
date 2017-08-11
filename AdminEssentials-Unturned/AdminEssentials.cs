@@ -14,8 +14,6 @@ namespace AdminEssentials
     public class AdminEssentials : PointBlankPlugin
     {
         #region Variables
-        private PlayerEvents.PlayerHurtHandler HurtHandler = null;
-
         private DateTime lastRun;
         #endregion
 
@@ -98,8 +96,25 @@ namespace AdminEssentials
             #endregion
 
             #region TpAll
-            {"TpAll_Help" , "Teleports all players to the specified city or player." },
-            {"TpAll_Usage" , " [city] | [player]" },
+            { "TpAll_Help" , "Teleports all players to the specified city or player." },
+            { "TpAll_Usage" , " [city] | [player]" },
+            { "TpAll_Invalid", "Invalid teleport location!" },
+            #endregion
+
+            #region Kill Animals
+            { "KillAnimals_Help", "Kills all animals on the server." },
+            { "KillAnimals_Success", "Successfully killed all animals on server!" },
+            #endregion
+
+            #region Kill Zombies
+            { "KillZombies_Help", "Kills all zombies on the server." },
+            { "KillZombies_Success", "Successfully killed all zombies on the server!" },
+            #endregion
+
+            #region Max Skills
+            { "MaxSkills_Help", "Maxes out all the skills on a player." },
+            { "MaxSkills_Usage", " [player]" },
+            { "MaxSkills_Success", "Successfully maxed out skills for {0}!" },
             #endregion
         };
 
@@ -116,26 +131,22 @@ namespace AdminEssentials
         public override void Load()
         {
             // Set the trash
-            HurtHandler = new PlayerEvents.PlayerHurtHandler(OnHurt);
             lastRun = DateTime.Now;
 
             // Disable existing commands
             PointBlankCommandManager.DisableCommand(PointBlankCommandManager.GetCommand<CMDS.CommandTeleport>());
 
             // Hook events
-            PlayerEvents.OnPlayerHurt += HurtHandler;
+            PlayerEvents.OnPlayerHurt += OnHurt;
         }
 
         public override void Unload()
         {
             // Unhook events
-            PlayerEvents.OnPlayerHurt -= HurtHandler;
+            PlayerEvents.OnPlayerHurt -= OnHurt;
 
             // Reenable existing commands
             PointBlankCommandManager.EnableCommand(PointBlankCommandManager.GetCommand<CMDS.CommandTeleport>());
-
-            // Remove the trash
-            HurtHandler = null;
         }
 
         #region Mono Functions
