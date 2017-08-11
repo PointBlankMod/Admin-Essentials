@@ -53,7 +53,10 @@ namespace AdminEssentials.Commands
             Vector3 pos = position.Value;
             pos.y += 6f;
 
-            player.Metadata.Add("pPosition", player.Position.Duplicate());
+            if (player.Metadata.ContainsKey("pPosition"))
+                player.Metadata["pPosition"] = player.Position.Duplicate();
+            else
+                player.Metadata.Add("pPosition", player.Position.Duplicate());
             player.Teleport(pos);
             UnturnedChat.SendMessage(executor, Translate("Jump_Jump"), ConsoleColor.Green);
         }

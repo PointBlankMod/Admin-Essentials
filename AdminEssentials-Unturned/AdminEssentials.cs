@@ -33,7 +33,7 @@ namespace AdminEssentials
             #region GodMode
             { "GodMode_Help", "Disables all damage done to the player" },
             { "GodMode_Usage", " [player]" },
-            { "GodMode_Success", "You have been godmodded!" },
+            { "GodMode_Success", "You have been godmodded/ungodmodded!" },
             #endregion
 
             #region Broadcast
@@ -76,7 +76,7 @@ namespace AdminEssentials
             { "Freeze_Help", "Freezes a player in place" },
             { "Freeze_Usage", " <player>" },
             { "Freeze_Unfreeze", "{0} has been unfrozen!" },
-            { "Freeze_freeze", "{0} has been frozen!" },
+            { "Freeze_Freeze", "{0} has been frozen!" },
             #endregion
 
             #region Kick All

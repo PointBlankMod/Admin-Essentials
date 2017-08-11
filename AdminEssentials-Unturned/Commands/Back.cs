@@ -56,7 +56,10 @@ namespace AdminEssentials.Commands
                 Vector3 pos = player.Position.Duplicate();
 
                 player.Teleport((Vector3)player.Metadata["pPosition"]);
-                player.Metadata.Add("pPosition", pos);
+                if (player.Metadata.ContainsKey("pPosition"))
+                    player.Metadata["pPosition"] = pos;
+                else
+                    player.Metadata.Add("pPosition", pos);
                 UnturnedChat.SendMessage(executor, Translate("Back_Successful", player.PlayerName), ConsoleColor.Green);
             });
         }

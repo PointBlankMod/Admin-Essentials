@@ -47,7 +47,10 @@ namespace AdminEssentials.Commands
                     return;
                 }
 
-                player.Metadata.Add("pPosition", player.Position.Duplicate());
+                if (player.Metadata.ContainsKey("pPosition"))
+                    player.Metadata["pPosition"] = player.Position.Duplicate();
+                else
+                    player.Metadata.Add("pPosition", player.Position.Duplicate());
                 player.Teleport(((UnturnedPlayer)executor).Position);
             });
         }
