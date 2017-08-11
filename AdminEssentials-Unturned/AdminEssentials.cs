@@ -28,6 +28,7 @@ namespace AdminEssentials
             { "InVehicle", "The player is inside a vehicle!" },
             { "TargetServer", "Can't use command on server!" },
             { "NotSpecified", "Unspecified" },
+            { "InvalidPosition", "Invalid location!" },
 
             #region GodMode
             { "GodMode_Help", "Disables all damage done to the player" },
@@ -81,6 +82,19 @@ namespace AdminEssentials
             #region Kick All
             { "KickAll_Help", "Kicks all player from the server." },
             { "KickAll_Usage", " [reason]" },
+            #endregion
+
+            #region Boom
+            { "Boom_Help", "Explodes a player" },
+            { "Boom_Usage", " <player>" },
+            { "Boom_Boom", "{0} has been exploded!" },
+            #endregion
+
+            #region Jump
+            { "Jump_Help", "Teleports the player to the position they are looking at." },
+            { "Jump_Usage", " [max distance]" },
+            { "Jump_Distance", "Invalid distance!" },
+            { "Jump_Jump", "Jumped successfully!" },
             #endregion
         };
 
