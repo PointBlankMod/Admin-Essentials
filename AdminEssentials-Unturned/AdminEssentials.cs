@@ -27,6 +27,7 @@ namespace AdminEssentials
             { "TargetServer", "Can't use command on server!" },
             { "NotSpecified", "Unspecified" },
             { "InvalidPosition", "Invalid location!" },
+            { "OutVehicle", "The player is not inside a vehicle!" },
 
             #region GodMode
             { "GodMode_Help", "Disables all damage done to the player" },
@@ -115,6 +116,17 @@ namespace AdminEssentials
             { "MaxSkills_Help", "Maxes out all the skills on a player." },
             { "MaxSkills_Usage", " [player]" },
             { "MaxSkills_Success", "Successfully maxed out skills for {0}!" },
+            #endregion
+
+            #region Refuel Vehicle
+            { "RefuelVehicle_Help", "Refuels the current vehicle." },
+            { "RefuelVehicle_Success", "Vehicle successfully refueled!" },
+            #endregion
+
+            #region Repair
+            { "Repair_Help", "Repairs all items in the player's inventory" },
+            { "Repair_Usage", " [player]" },
+            { "Repair_Success", "Successfully repaired {0}'s items!" },
             #endregion
         };
 
