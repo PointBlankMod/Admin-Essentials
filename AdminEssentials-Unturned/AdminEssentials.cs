@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using PointBlank.API.Commands;
 using PointBlank.API.Collections;
@@ -95,6 +95,10 @@ namespace AdminEssentials
             { "Jump_Usage", " [max distance]" },
             { "Jump_Distance", "Invalid distance!" },
             { "Jump_Jump", "Jumped successfully!" },
+
+            #region Tp All
+            {"TpAll_Help" , "Teleports all players to the specified city or player." },
+            {"TpAll_Usage" , " [city] | [player]" },
             #endregion
         };
 
