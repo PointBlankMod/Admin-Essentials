@@ -53,8 +53,9 @@ namespace AdminEssentials.Commands
 
                 player.Items.ForEach((item) =>
                 {
-                    
+                    item.Quality = 100;
                 });
+                UnturnedChat.SendMessage(executor, Translate("Repair_Success", player.PlayerName), ConsoleColor.Green);
             });
         }
     }

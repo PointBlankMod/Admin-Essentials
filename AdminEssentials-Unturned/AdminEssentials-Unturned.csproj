@@ -72,6 +72,9 @@
     <Compile Include="Commands\MaxSkills.cs" />
     <Compile Include="Commands\RefuelVehicle.cs" />
     <Compile Include="Commands\Repair.cs" />
+    <Compile Include="Commands\RepairVehicle.cs" />
+    <Compile Include="Commands\RequestURL.cs" />
+    <Compile Include="Commands\Sudo.cs" />
     <Compile Include="Commands\Teleport.cs" />
     <Compile Include="Commands\TpAll.cs" />
     <Compile Include="Commands\TpHere.cs" />

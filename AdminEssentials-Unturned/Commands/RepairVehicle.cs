@@ -6,25 +6,22 @@ using PointBlank.API.Commands;
 using PointBlank.API.Player;
 using PointBlank.API.Unturned.Chat;
 using PointBlank.API.Unturned.Player;
-using PointBlank.API.Unturned.Vehicle;
-using SDG.Unturned;
 
 namespace AdminEssentials.Commands
 {
-    public class RefuelVehicle : PointBlankCommand
+    public class RepairVehicle : PointBlankCommand
     {
         #region Properties
         public override string[] DefaultCommands => new string[]
         {
-            "Refuel",
-            "RefuelVehicle"
+            "RepairVehicle"
         };
 
-        public override string Help => Translate("RefuelVehicle_Help");
+        public override string Help => Translate("RepairVehicle_Help");
 
         public override string Usage => Commands[0];
 
-        public override string DefaultPermission => "adminessentials.commands.refuelvehicle";
+        public override string DefaultPermission => "adminessentials.commands.repairvehicle";
 
         public override EAllowedServerState AllowedServerState => EAllowedServerState.RUNNING;
 
@@ -40,8 +37,8 @@ namespace AdminEssentials.Commands
                 UnturnedChat.SendMessage(executor, Translate("OutVehicle"), ConsoleColor.Red);
                 return;
             }
-            player.Vehicle.Fuel = player.Vehicle.MaxFuel;
-            UnturnedChat.SendMessage(executor, Translate("RefuelVehicle_Success"), ConsoleColor.Green);
+            player.Vehicle.Health = player.Vehicle.MaxHealth;
+            UnturnedChat.SendMessage(executor, Translate("RepairVehicle_Success"), ConsoleColor.Green);
         }
     }
 }

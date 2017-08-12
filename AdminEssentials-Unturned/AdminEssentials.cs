@@ -128,6 +128,25 @@ namespace AdminEssentials
             { "Repair_Usage", " [player]" },
             { "Repair_Success", "Successfully repaired {0}'s items!" },
             #endregion
+
+            #region Repair Vehicle
+            { "RepairVehicle_Help", "Repairs the current vehicle." },
+            { "RepairVehicle_Success", "Vehicle successfully repaired!" },
+            #endregion
+
+            #region Request URL
+            { "RequestURL_Help", "Opens a URL on the specified player." },
+            { "RequestURL_Usage", " <URL> <message> <player>" },
+            { "RequestURL_Success", "Successfully sent URl request to {0}!" },
+            #endregion
+
+            #region Sudo
+            { "Sudo_Help", "Executes a message as a player." },
+            { "Sudo_Usage", " <message> [player]" },
+            { "Sudo_Admin", "Can't execute sudo on admins!" },
+            { "Sudo_Server", "Can't execute sudo on server!" },
+            { "Sudo_Success", "Message has been executed successfully!" },
+            #endregion
         };
 
         public override ConfigurationList Configurations => new ConfigurationList() { };
