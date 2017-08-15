@@ -199,6 +199,9 @@ namespace AdminEssentials
         #region Event Functions
         private void OnHurt(UnturnedPlayer player, ref byte damage, ref EDeathCause cause, ref ELimb limb, ref UnturnedPlayer damager, ref bool cancel)
         {
+            if (player == null)
+                return;
+
             if(player.Metadata.ContainsKey("GodMode"))
                 cancel = true;
         }
