@@ -20,7 +20,6 @@ namespace AdminEssentials
         #endregion
 
         #region Properties
-
         public override TranslationList Translations => new TranslationList()
         {
             { "PlayerNotFound", "The specified player has not been found!" },
@@ -164,10 +163,9 @@ namespace AdminEssentials
 
         public override string Version => "1.0.0.0";
 
-        public override string BuildURL => "";
+        public override string BuildURL => "http://198.245.61.226/kr4ken/pointblank/adminessentials/AdminEssentials.dll";
 
-        public override string VersionURL => "";
-
+        public override string VersionURL => "http://198.245.61.226/kr4ken/pointblank/adminessentials/Version.txt";
         #endregion
 
         public override void Load()
@@ -180,12 +178,14 @@ namespace AdminEssentials
 
             // Hook events
             PlayerEvents.OnPlayerHurt += OnHurt;
+            ServerEvents.OnPacketSent += OnPacketSent;
         }
 
         public override void Unload()
         {
             // Unhook events
             PlayerEvents.OnPlayerHurt -= OnHurt;
+            ServerEvents.OnPacketSent -= OnPacketSent;
 
             // Reenable existing commands
             PointBlankCommandManager.EnableCommand(PointBlankCommandManager.GetCommand<CMDS.CommandTeleport>());
