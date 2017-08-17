@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using PointBlank.API;
 using PointBlank.API.Commands;
 using PointBlank.API.Player;
 using PointBlank.API.Implements;
@@ -34,10 +35,13 @@ namespace AdminEssentials.Commands
             UnturnedPlayer[] players = new UnturnedPlayer[1];
             players[0] = (UnturnedPlayer)executor;
 
-            if(!UnturnedPlayer.TryGetPlayers(args[0], out players))
+            if(args.Length > 0)
             {
-                UnturnedChat.SendMessage(executor, Translate("PlayerNotFound"), ConsoleColor.Red);
-                return;
+                if (!UnturnedPlayer.TryGetPlayers(args[0], out players))
+                {
+                    UnturnedChat.SendMessage(executor, Translate("PlayerNotFound"), ConsoleColor.Red);
+                    return;
+                }
             }
 
             players.ForEach((player) =>
@@ -48,19 +52,19 @@ namespace AdminEssentials.Commands
                     return;
                 }
 
-                for(int i = 0; i <= 6; i++)
+                for(int i = 0; i < 7; i++)
                 {
                     Skill skl = player.USkills.skills[(int)ESkillset.DEFENSE][i];
 
                     skl.level = skl.max;
                 }
-                for(int i = 0; i <= 6; i++)
+                for(int i = 0; i < 7; i++)
                 {
                     Skill skl = player.USkills.skills[(int)ESkillset.OFFENSE][i];
 
                     skl.level = skl.max;
                 }
-                for(int i = 0; i <= 7; i++)
+                for (int i = 0; i < 8; i++)
                 {
                     Skill skl = player.USkills.skills[(int)ESkillset.SUPPORT][i];
 

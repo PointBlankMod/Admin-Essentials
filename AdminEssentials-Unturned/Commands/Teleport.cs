@@ -52,7 +52,7 @@ namespace AdminEssentials.Commands
                 else
                     player.Metadata.Add("pPosition", player.Position.Duplicate());
                 player.Teleport(pTarget.Player.transform.position);
-                UnturnedChat.SendMessage(executor, string.Format(Translate("Teleport_Teleport"), player.PlayerName, pTarget.PlayerName), ConsoleColor.Green);
+                UnturnedChat.SendMessage(executor, Translate("Teleport_Teleport", player.PlayerName, pTarget.PlayerName), ConsoleColor.Green);
             }
             else
             {
@@ -69,7 +69,7 @@ namespace AdminEssentials.Commands
                 else
                     player.Metadata.Add("pPosition", player.Position.Duplicate());
                 player.Teleport(nTarget.point);
-                UnturnedChat.SendMessage(executor, string.Format(Translate("Teleport_Teleport"), player.PlayerName, ((LocationNode)nTarget).name), ConsoleColor.Green);
+                UnturnedChat.SendMessage(executor, Translate("Teleport_Teleport", player.PlayerName, ((LocationNode)nTarget).name), ConsoleColor.Green);
             }
         }
     }

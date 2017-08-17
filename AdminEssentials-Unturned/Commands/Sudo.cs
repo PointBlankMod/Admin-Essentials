@@ -36,37 +36,35 @@ namespace AdminEssentials.Commands
 
             if(args.Length > 1)
             {
-                if(!UnturnedPlayer.TryGetPlayers(args[1], out players))
+                if(UnturnedPlayer.TryGetPlayers(args[1], out players))
                 {
-                    UnturnedChat.SendMessage(executor, Translate("PlayerNotFound"), ConsoleColor.Red);
+                    players.ForEach((player) =>
+                    {
+                        if (player.IsAdmin && (!UnturnedPlayer.IsServer(executor) && !((UnturnedPlayer)executor).HasPermission("adminessentials.commands.sudo.admin")))
+                        {
+                            UnturnedChat.SendMessage(executor, Translate("Sudo_Admin"), ConsoleColor.Red);
+                            return;
+                        }
+                        if (player == (UnturnedPlayer)executor)
+                        {
+                            UnturnedChat.SendMessage(executor, Translate("Sudo_Self"), ConsoleColor.Red);
+                            return;
+                        }
+
+                        player.Sudo(args[0]);
+                    });
+                    UnturnedChat.SendMessage(executor, Translate("Sudo_Success"), ConsoleColor.Green);
                     return;
                 }
             }
 
-            if(players.Length > 0)
+            if (UnturnedPlayer.IsServer(executor) || ((UnturnedPlayer)executor).HasPermission("adminessentials.commands.sudo.server"))
             {
-                players.ForEach((player) =>
-                {
-                    if (player.IsAdmin && (!UnturnedPlayer.IsServer(executor) && !((UnturnedPlayer)executor).HasPermission("adminessentials.commands.sudo.admin")))
-                    {
-                        UnturnedChat.SendMessage(executor, Translate("Sudo_Admin"), ConsoleColor.Red);
-                        return;
-                    }
-
-                    player.Sudo(args[0]);
-                });
+                CommandWindow.input.onInputText(args[0]);
                 UnturnedChat.SendMessage(executor, Translate("Sudo_Success"), ConsoleColor.Green);
             }
             else
-            {
-                if (UnturnedPlayer.IsServer(executor) || ((UnturnedPlayer)executor).HasPermission("adminessentials.commands.sudo.server"))
-                {
-                    CommandWindow.input.onInputText(args[0]);
-                    UnturnedChat.SendMessage(executor, Translate("Sudo_Success"), ConsoleColor.Green);
-                }
-                else
-                    UnturnedChat.SendMessage(executor, Translate("Sudo_Server"), ConsoleColor.Red);
-            }
+                UnturnedChat.SendMessage(executor, Translate("Sudo_Server"), ConsoleColor.Red);
         }
     }
 }

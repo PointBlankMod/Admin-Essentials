@@ -78,6 +78,7 @@
     <Compile Include="Commands\Teleport.cs" />
     <Compile Include="Commands\TpAll.cs" />
     <Compile Include="Commands\TpHere.cs" />
+    <Compile Include="Commands\Vanish.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -47,11 +47,15 @@ namespace AdminEssentials.Commands
                 }
 
                 if (player.Metadata.ContainsKey("GodMode"))
+                {
                     player.Metadata.Remove("GodMode");
+                    UnturnedChat.SendMessage(player, Translate("GodMode_Ungod"), ConsoleColor.Green);
+                }
                 else
+                {
                     player.Metadata.Add("GodMode", true);
-
-                UnturnedChat.SendMessage(player, Translate("GodMode_Success"), ConsoleColor.Green);
+                    UnturnedChat.SendMessage(player, Translate("GodMode_God"), ConsoleColor.Green);
+                }
             });
         }
     }

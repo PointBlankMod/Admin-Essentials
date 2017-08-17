@@ -5,9 +5,11 @@ using PointBlank.API.Collections;
 using PointBlank.API.Plugins;
 using PointBlank.API.Unturned.Player;
 using PointBlank.API.Unturned.Server;
+using Steamworks;
 using SDG.Unturned;
 using UnityEngine;
 using CMDS = PointBlank.Commands;
+using Typ = SDG.Unturned.Types;
 
 namespace AdminEssentials
 {
@@ -32,7 +34,8 @@ namespace AdminEssentials
             #region GodMode
             { "GodMode_Help", "Disables all damage done to the player" },
             { "GodMode_Usage", " [player]" },
-            { "GodMode_Success", "You have been godmodded/ungodmodded!" },
+            { "GodMode_God", "You have been godded!" },
+            { "GodMode_Ungod", "You have been ungodded!" },
             #endregion
 
             #region Broadcast
@@ -145,7 +148,15 @@ namespace AdminEssentials
             { "Sudo_Usage", " <message> [player]" },
             { "Sudo_Admin", "Can't execute sudo on admins!" },
             { "Sudo_Server", "Can't execute sudo on server!" },
+            { "Sudo_Self", "Can't execute sudo on yourself!" },
             { "Sudo_Success", "Message has been executed successfully!" },
+            #endregion
+
+            #region Vanish
+            { "Vanish_Help", "Makes a player invisible to others." },
+            { "Vanish_Usage", " [player]" },
+            { "Vanish_Vanish", "You have been vanished!" },
+            { "Vanish_Unvanish", "You have been unvanished!" },
             #endregion
         };
 
@@ -204,6 +215,48 @@ namespace AdminEssentials
 
             if(player.Metadata.ContainsKey("GodMode"))
                 cancel = true;
+        }
+
+        private void OnPacketSent(ref CSteamID steamID, ref ESteamPacket type, ref byte[] packet, ref int size, ref int channel, ref bool cancel)
+        {
+            if(type == ESteamPacket.CONNECTED)
+            {
+                object[] info = SteamPacker.getObjects(steamID, 0, 0, packet, new Type[]
+                {
+                    Typ.BYTE_TYPE,
+                    Typ.STEAM_ID_TYPE,
+                    Typ.BYTE_TYPE,
+                    Typ.STRING_TYPE,
+                    Typ.STRING_TYPE,
+                    Typ.VECTOR3_TYPE,
+                    Typ.BYTE_TYPE,
+                    Typ.BOOLEAN_TYPE,
+                    Typ.BOOLEAN_TYPE,
+                    Typ.INT32_TYPE,
+                    Typ.STEAM_ID_TYPE,
+                    Typ.STRING_TYPE,
+                    Typ.BYTE_TYPE,
+                    Typ.BYTE_TYPE,
+                    Typ.BYTE_TYPE,
+                    Typ.COLOR_TYPE,
+                    Typ.COLOR_TYPE,
+                    Typ.BOOLEAN_TYPE,
+                    Typ.INT32_TYPE,
+                    Typ.INT32_TYPE,
+                    Typ.INT32_TYPE,
+                    Typ.INT32_TYPE,
+                    Typ.INT32_TYPE,
+                    Typ.INT32_TYPE,
+                    Typ.INT32_TYPE,
+                    Typ.INT32_ARRAY_TYPE,
+                    Typ.BYTE_TYPE,
+                    Typ.STRING_TYPE
+                });
+                UnturnedPlayer player = UnturnedPlayer.Get((CSteamID)info[1]);
+
+                if (player.Metadata.ContainsKey("Vanish"))
+                    cancel = true;
+            }
         }
         #endregion
     }
