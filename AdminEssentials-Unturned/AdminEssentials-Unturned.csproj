@@ -62,6 +62,7 @@
     <Compile Include="Commands\Boom.cs" />
     <Compile Include="Commands\Broadcast.cs" />
     <Compile Include="Commands\ClearInventory.cs" />
+    <Compile Include="Commands\Fly.cs" />
     <Compile Include="Commands\Freeze.cs" />
     <Compile Include="Commands\GodMode.cs" />
     <Compile Include="Commands\Heal.cs" />

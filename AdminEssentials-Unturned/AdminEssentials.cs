@@ -157,6 +157,15 @@ namespace AdminEssentials
             { "Vanish_Vanish", "You have been vanished!" },
             { "Vanish_Unvanish", "You have been unvanished!" },
             #endregion
+
+#if DEBUG
+            #region Fly
+            { "Fly_Help", "Let's the player fly around." },
+            { "Fly_Usage", " [player]" },
+            { "Fly_Start", "Up up and away!" },
+            { "Fly_Stop", "Safe landing ;D" },
+            #endregion
+#endif
         };
 
         public override ConfigurationList Configurations => new ConfigurationList() { };
@@ -203,9 +212,23 @@ namespace AdminEssentials
                         UnturnedServer.Players[i].Life.sendRevive();
                 lastRun = DateTime.Now;
             }
-            foreach(UnturnedPlayer player in UnturnedServer.Players)
+            foreach (UnturnedPlayer player in UnturnedServer.Players)
+            {
                 if (player.Metadata.ContainsKey("FreezePosition"))
                     player.Teleport((Vector3)player.Metadata["FreezePosition"]);
+#if DEBUG
+                if (player.Metadata.ContainsKey("Fly"))
+                {
+                    float speed = 1f;
+                    if (player.Player.input.keys[0])
+                        player.Player.transform.position = (new Vector3(player.Position.x, player.Position.y + 1 * speed, player.Position.z));
+                    if (player.Player.input.keys[5])
+                        player.Player.transform.position = (new Vector3(player.Position.x, player.Position.y - 1 * speed, player.Position.z));
+                    if (player.Player.movement.isMoving == (Mathf.Abs(player.Position.x) > 0.5 || Mathf.Abs(player.Position.z) > 0.5))
+                        player.Player.transform.Translate(player.Player.transform.forward * (speed * 16) * Time.deltaTime, Space.World);
+                }
+#endif
+            }
         }
         #endregion
 
