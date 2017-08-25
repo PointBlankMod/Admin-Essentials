@@ -1,10 +1,10 @@
 using System;
-using System.Linq;
 using PointBlank.API.Commands;
 using PointBlank.API.Collections;
 using PointBlank.API.Plugins;
 using PointBlank.API.Unturned.Player;
 using PointBlank.API.Unturned.Server;
+using PointBlank.API.Unturned.Zombie;
 using Steamworks;
 using SDG.Unturned;
 using UnityEngine;
@@ -161,7 +161,7 @@ namespace AdminEssentials
 
         public override ConfigurationList Configurations => new ConfigurationList() { };
 
-        public override string Version => "1.0.0.0";
+        public override string Version => "1.0.1.0";
 
         public override string BuildURL => "http://198.245.61.226/kr4ken/pointblank/adminessentials/AdminEssentials.dll";
 
@@ -179,6 +179,7 @@ namespace AdminEssentials
             // Hook events
             PlayerEvents.OnPlayerHurt += OnHurt;
             ServerEvents.OnPacketSent += OnPacketSent;
+            ZombieEvents.OnZombieAlert += OnZombieAlert;
         }
 
         public override void Unload()
@@ -186,6 +187,7 @@ namespace AdminEssentials
             // Unhook events
             PlayerEvents.OnPlayerHurt -= OnHurt;
             ServerEvents.OnPacketSent -= OnPacketSent;
+            ZombieEvents.OnZombieAlert -= OnZombieAlert;
 
             // Reenable existing commands
             PointBlankCommandManager.EnableCommand(PointBlankCommandManager.GetCommand<CMDS.CommandTeleport>());
@@ -214,6 +216,12 @@ namespace AdminEssentials
                 return;
 
             if(player.Metadata.ContainsKey("GodMode"))
+                cancel = true;
+        }
+
+        private void OnZombieAlert(UnturnedZombie zombie, ref UnturnedPlayer player, ref bool cancel)
+        {
+            if (player.Metadata.ContainsKey("Vanish"))
                 cancel = true;
         }
 
