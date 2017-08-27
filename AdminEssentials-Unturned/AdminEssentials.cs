@@ -20,7 +20,7 @@ namespace AdminEssentials
         #endregion
 
         #region Properties
-        public override TranslationList Translations => new TranslationList()
+        public override TranslationList DefaultTranslations => new TranslationList()
         {
             { "PlayerNotFound", "The specified player has not been found!" },
             { "FailServer", "Please target a specific player!" },
@@ -167,8 +167,6 @@ namespace AdminEssentials
             #endregion
 #endif
         };
-
-        public override ConfigurationList Configurations => new ConfigurationList() { };
 
         public override string Version => "1.0.1.0";
 
